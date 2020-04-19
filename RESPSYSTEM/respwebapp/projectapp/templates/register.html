@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% if title %}
+		<title>{{title}}</title>
+		<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='adax.png') }}">
+	{% else %}s
+		<title>Dr. RespAI</title>
+		<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='adax.png') }}">
+	{% endif %}
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+</head>
+<body>
+<!---NavigationBar--->
+<section id="nav-bar">
+  <nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename='logo.jpg') }}"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</section>
+<section id="register">
+	<div class="container">
+		<h1>Register</h1>
+		<div class="row">
+			<div class="col-md-6">
+				<form class="register-form" action="" method="POST">
+					<div class="col-md-8">
+						{% with messages = get_flashed_messages(with_categories=true) %}
+						{% if messages %}
+							{% for category, message in messages %}
+							<div class="alert alert-{{ category }}">
+								{{ message }}
+							</div>
+							{% endfor %}
+						{% endif %}
+						{% endwith %}
+					</div>
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+						{{ form.username.label(class ="form-control-label")}}
+
+						{% if form.username.errors %}
+							{{ form.username(class="form-control form-control-lg is-invalid")}}
+							<div class ="invalid-feedback" >
+								{% for error in form.username.errors %}
+									<span>{{ error }}</span>
+								{% endfor %}
+							</div>
+						{% else %}
+							{{ form.username(class ="form-control form-control-lg")}}
+						{% endif %}
+					</div>
+
+					<div class="form-group">
+						{{ form.email.label(class ="form-control-label")}}
+
+						{% if form.email.errors %}
+							{{ form.email(class="form-control form-control-lg is-invalid")}}
+							<div class ="invalid-feedback" >
+								{% for error in form.email.errors %}
+									<span>{{ error }}</span>
+								{% endfor %}
+							</div>
+						{% else %}
+							{{ form.email(class ="form-control form-control-lg")}}
+						{% endif %}
+					</div>
+                    <div class="form-group">
+						{{ form.password.label(class ="form-control-label")}}
+							{% if form.password.errors %}
+								{{ form.password(class="form-control form-control-lg is-invalid")}}
+								<div class ="invalid-feedback" >
+									{% for error in form.password.errors %}
+										<span>{{ error }}</span>
+									{% endfor %}
+								</div>
+							{% else %}
+								{{ form.password(class ="form-control form-control-lg")}}
+							{% endif %}
+					</div>
+                    <div class="form-group">
+						{{ form.confirm_password.label(class ="form-control-label")}}
+							{% if form.confirm_password.errors %}
+								{{ form.confirm_password(class="form-control form-control-lg is-invalid")}}
+								<div class ="invalid-feedback" >
+									{% for error in form.confirm_password.errors %}
+										<span>{{ error }}</span>
+									{% endfor %}
+								</div>
+							{% else %}
+								{{ form.confirm_password(class ="form-control form-control-lg")}}
+							{% endif %}
+					</div>
+                    <div class="form-group">
+                        {{ form.submit(class="btn btn-outline-info")}}
+                    </div>                
+                </form>
+                <div class="border-top pt-3">
+                    <small class="text-muted">
+                        Already have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
+                    </small>
+                </div>
+			</div>
+			<div class="col-md-6 register-info">
+				<div class="follow">
+					<b><i class="fa fa-map-marker"></i> Our Address: Fr. Conceicao Rodrigues Institute of Technology, Sector9A, Vashi, Navi Mumbai-400073 </b>
+				</div>
+				<div class="follow">
+					<b><i class="fa fa-phone-square"></i> Contact: 022-27771000</b>
+				</div>
+				<div class="follow">
+					<b><i class="fa fa-envelope"></i> Email id: www.fcrit.ac.in</b>
+				</div>
+				<div class="follow">
+					<label>
+						<b>Get Social:</b>
+					</label>
+					<a href="#"><i class="fa fa-google-plus"></i></a>
+					<a href="#"><i class="fa fa-youtube-play"></i></a>
+					<a href="#"><i class="fa fa-twitter"></i></a>
+					<a href="#"><i class="fa fa-facebook"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!---Footer--->
+<section id="footer" style="position:fixed;bottom:0;left:0;right:0;height:60px;">
+	<div class="container text-center">
+		<p>Made with <i class="fa fa-heart-o"></i> by Group 6</p>
+	</div>
+</section>
+<!---Footer End--->
+<script src="/static/js/smooth-scroll.js"></script>
+<script>
+	var scroll = new SmoothScroll('.some-selector',{header:'[Register]'});
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% if title %}
+		<title>{{title}}</title>
+		<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='adax.png') }}">
+	{% else %}s
+		<title>Dr. RespAI</title>
+		<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='adax.png') }}">
+	{% endif %}
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+	
+</head>
+<body>
+<!---NavigationBar--->
+<section id="nav-bar">
+  <nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename='logo.jpg') }}"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('record') }}">VIEW RECORD</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('logout') }}">LOGOUT</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</section>
+<br>
+<br>
+<br>
+<br>
+<!---Register--->
+<section id="make_prediction">
+	<div class="container" style="border: #333333 solid ; width: 50%;">
+		<h1>Make Prediction </h1>
+		<div class="col-md-50" style="text-align: center"> 
+	{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+		{% for category, message in messages %}
+		<div class="alert alert-{{ category }}">
+			{{ message }}
+		</div>
+		{% endfor %}
+	{% endif %}
+	{% endwith %}
+</div>
+<br>	{% if result %}
+		<span class='text-center font-weight-bold' style="text-align: center; padding-top: 50px; padding-left: 250px; font-size: x-large;">Classified as {{ result }}</span>
+		<br>
+		<br>
+		{% else %}
+		<span class='text-center font-weight-bold' style="text-align: center; padding-top: 50px; padding-left: 150px; font-size: x-large;">Input The Audio File In .WAV Format</span>
+		<br>
+		<br>
+		{% endif %}	
+		<form method="POST" action="" enctype="multipart/form-data">
+			<!-- COMPONENT START -->
+			<div class="form-group">
+					<div class="form-group" style="text-align: center; align-content: center;">
+						{{ form.audio.label() }}
+						<div class="container" style="border: #033BFF solid ; width: 50%;">
+                        {{ form.audio(class="form-control-file")}}
+                    </div>
+                        {% if form.audio.errors %}
+                        	{% for error in form.audio.errors %}
+                        		<span class="text-danger">{{ error }}</span></br>
+                        	{% endfor %}
+                        {% endif %}
+                    </div>
+						<!-- <button class="btn btn-secondary btn-choose" type="button">Choose</button>
+					</span>
+				</div> -->
+			</div>
+			<!-- COMPONENT END -->
+			<div class="form-group">
+				    <div class="form-group">
+                        {{ form.submit(class="btn btn-outline-info pull-right")}}
+                    </div>  
+				<button type="reset" class="btn btn-danger">Reset</button>
+			</div>
+		</form>
+		</div>
+		</div>
+	</div>
+</section>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!---Footer--->
+<section id="footer" style="position:fixed;bottom:0;left:0;right:0;height:60px;">
+	<div class="container text-center">
+		<p>Made with <i class="fa fa-heart-o"></i> by Group 6</p>
+	</div>
+</section>
+</script>
+</body>
+</html>

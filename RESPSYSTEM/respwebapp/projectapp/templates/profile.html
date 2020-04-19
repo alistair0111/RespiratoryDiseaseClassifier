@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% if title %}
+		<title>{{title}}</title>
+		<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='adax.png') }}">
+	{% else %}s
+		<title>Dr. RespAI</title>
+		<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='adax.png') }}">
+	{% endif %}
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+</head>
+<body>
+<!---NavigationBar--->
+<section id="nav-bar">
+  <nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename='logo.jpg') }}"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('record') }}">VIEW RECORDS</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('logout') }}">LOGOUT</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</section>
+<div class="col-md-50" style="text-align: center"> 
+	{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+		{% for category, message in messages %}
+		<div class="alert alert-{{ category }}">
+			{{ message }}
+		</div>
+		{% endfor %}
+	{% endif %}
+	{% endwith %}
+</div>
+<h1>Account Info</h1>
+<main role="main" class="container" style="  background: #ffffff;
+  		padding: 10px 20px;
+  		border: 1px solid #dddddd;
+		border-radius: 3px;
+		margin-bottom: 20px;">
+      <div class="row">
+        <div class="col-md-8">
+			<div>
+		  		<div class="media">
+    		<img class="rounded-circle" style=" height: 125px;
+			  width: 125px;
+			  margin-right: 20px;
+			  margin-bottom: 16px;" src="{{ image_file }}">
+			    			<div class="media-body">
+      				<h2 style="font-size: 2.5rem;">{{ current_user.username }}</h2>
+      				<p class="text-secondary">{{ current_user.email }}</p>
+    			</div>
+  			</div>
+  <!-- FORM HERE -->
+			<form method="POST" action="" enctype='multipart/form-data'>
+				{{ form.hidden_tag() }}
+				<fieldset class='form-group'>
+					<div class="form-group">
+						{{ form.username.label(class ="form-control-label")}}
+
+						{% if form.username.errors %}
+							{{ form.username(class="form-control form-control-lg is-invalid")}}
+							<div class ="invalid-feedback" >
+								{% for error in form.username.errors %}
+									<span>{{ error }}</span>
+								{% endfor %}
+							</div>
+						{% else %}
+							{{ form.username(class ="form-control form-control-lg")}}
+						{% endif %}
+					</div>
+
+					<div class="form-group">
+						{{ form.email.label(class ="form-control-label")}}
+
+						{% if form.email.errors %}
+							{{ form.email(class="form-control form-control-lg is-invalid")}}
+							<div class ="invalid-feedback" >
+								{% for error in form.email.errors %}
+									<span>{{ error }}</span>
+								{% endfor %}
+							</div>
+						{% else %}
+							{{ form.email(class ="form-control form-control-lg")}}
+						{% endif %}
+					</div>
+					<div class="form-group">
+						{{ form.picture.label() }}
+						{{ form.picture(class="form-control-file") }}
+						{% if form.picture.errors %}
+							{% for error in form.picture.errors %}
+								<span class = "text-danger">{{ error }}</span></br>
+							{% endfor %}
+						{% endif %}
+					</div>	
+
+				</fieldset>
+				<div class='form-group'>
+					{{ form.submit(class="btn btn-outline-info") }}
+				</div>
+			</form>
+		</div>
+		</div>
+        <div class="col-md-4 register-info">
+				<div class="follow">
+					<b><i class="fa fa-map-marker"></i> Our Address: Fr. Conceicao Rodrigues Institute of Technology, Sector9A, Vashi, Navi Mumbai-400073 </b>
+				</div>
+				<div class="follow">
+					<b><i class="fa fa-phone-square"></i> Contact: 022-27771000</b>
+				</div>
+				<div class="follow">
+					<b><i class="fa fa-envelope"></i> Email id: www.fcrit.ac.in</b>
+				</div>
+				<div class="follow">
+					<label>
+						<b>Get Social:</b>
+					</label>
+					<a href="#"><i class="fa fa-google-plus"></i></a>
+					<a href="#"><i class="fa fa-youtube-play"></i></a>
+					<a href="#"><i class="fa fa-twitter"></i></a>
+					<a href="#"><i class="fa fa-facebook"></i></a>
+				</div>
+			</div>
+	</div>	
+</main>
+<!---Footer--->
+<section id="footer" style="position:fixed;bottom:0;left:0;right:0;height:60px;">
+	<div class="container text-center">
+		<p>Made with <i class="fa fa-heart-o"></i> by Group 6</p>
+	</div>
+</section>
+<!---Footer End--->
+<script src="/static/js/smooth-scroll.js"></script>
+<script>
+	var scroll = new SmoothScroll('.some-selector',{header:'[Register]'});
+</script>
+</body>
+</html>
