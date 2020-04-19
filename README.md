@@ -1,4 +1,4 @@
-# Respiratory Disease Classifier.
+<h1> Respiratory Disease Classifier.</h1>
 <br>
 ## The disease that can be classified are 
 <li>Bronchiectasis </li>
