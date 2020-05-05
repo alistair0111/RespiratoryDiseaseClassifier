@@ -39,7 +39,7 @@
         <ol><li>from projectapp.models import User,Audio
         <li>from projectapp import db
          <li>db.create_all()</ol>
-    <li>The above steps will create a site.db wile where are database will be stored.</ol>
+    <li>The above steps will create a site.db file which is our database.</ol>
 <li> To run the WebApp type in python run.py in cmd/terminal.
 <li>Open the project in any browser preferably chrome or firefox by navigating to the url displayed in the terminal which is usually localhost:5000 or 127.0.0.1:5000
  </ol>
